@@ -21,6 +21,7 @@ public class Enemy : AnimationSprite
     int delay = 500;
     int lastHitTime = 0;
 
+
     EasyDraw hpBar = new EasyDraw(100, 100, false);
 
 
@@ -32,7 +33,7 @@ public class Enemy : AnimationSprite
         this.attackPower = attackPower;
         this.enemySpeed = enemySpeed;
 
-         
+
         AddChild(hpBar);
     }
 
@@ -50,7 +51,7 @@ public class Enemy : AnimationSprite
     protected void TakeDamage(int damage)
     {
         health -= damage;
-       
+
 
         if (health <= 0)
         {
@@ -84,19 +85,38 @@ public class Enemy : AnimationSprite
         LateDestroy();
     }
 
-    public void ChasePlayer(Player pPlayer, int enemySpeed)
+    protected float HorizonotalMovement(Player pPlayer)
+    {
+        player = pPlayer;
+        float dx = player.x - x;
+        return dx;
+    }
+
+    protected float VerticalMovement(Player pPlayer)
+    {
+        player = pPlayer;
+        float dy = player.y - y;
+        return dy;
+    }
+
+    public virtual void ChasePlayer(Player pPlayer, int enemySpeed)
     {
         player = pPlayer;
 
-        float dx = player.x - x;
-        float dy = player.y - y;
+
+        float dx = HorizonotalMovement(player);
+        float dy = VerticalMovement(player);
 
         float distance = Mathf.Sqrt(dx * dx + dy * dy);
 
+
         Move(dx * enemySpeed / distance, 0);
 
+
         Gravity();
+
     }
+
     void ShowHealthBar()
     {
         hpBar.graphics.Clear(Color.Empty);
@@ -110,7 +130,7 @@ public class Enemy : AnimationSprite
     {
         //CheckCollisions();
         DamagePlayer(player);
-        hpBar.SetXY(0 - 10 , 0);
+        hpBar.SetXY(0 - 10, 0);
     }
 
 

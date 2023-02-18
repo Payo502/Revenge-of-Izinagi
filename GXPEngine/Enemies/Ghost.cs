@@ -9,7 +9,9 @@ using TiledMapParser;
 
 public class Ghost : Enemy
 {
-    public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows,5,1,1)
+    Player player;
+
+    public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows, 5, 1, 3)
     {
 
     }
@@ -26,6 +28,18 @@ public class Ghost : Enemy
                 Console.WriteLine("Ghost health remaining {0}", health);
             }
         }
+    }
+
+    public override void ChasePlayer(Player pPlayer, int enemySpeed)
+    {
+        player = pPlayer;
+
+        float dx = HorizonotalMovement(player);
+        float dy = VerticalMovement(player);
+
+        float distance = Mathf.Sqrt(dx * dx + dy * dy);
+
+        Move(dx * enemySpeed / distance, dy * enemySpeed / distance);
     }
 
     protected override void Update()

@@ -37,7 +37,7 @@ public class Player : AnimationSprite
     int dashDelay = 1000;
     int lastDash = 0;
 
-    int shootDelay = 500;
+    int shootDelay = 200;
     int lastShoot = 0;
 
     bool isBlocking = false;
@@ -45,11 +45,11 @@ public class Player : AnimationSprite
     int lastBlock = 0;
 
 
-    public Player(TiledObject obj = null) : base("Ninja.png", 10, 1)
+    public Player(TiledObject obj = null) : base("Ninja.png", 15, 1)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
-        SetCycle(0, 1); // Idle Animation
+        SetCycle(13, 2); // Idle Animation
 
         health = maxHealth;
     }
@@ -143,7 +143,7 @@ public class Player : AnimationSprite
 
         if (isDashing)
         {
-            SetCycle(9, 1); // Dashing Animation
+            SetCycle(12, 1); // Dashing Animation
         }
         else if (isBlocking)
         {
@@ -151,20 +151,20 @@ public class Player : AnimationSprite
         }
         else if (vy < 0)
         {
-            SetCycle(7, 2, 3); // Jumping Animation
+            SetCycle(9, 3,4); // Jumping Animation
 
         }
         else if (vy > 0)
         {
-            SetCycle(9, 1); // Falling Animation
+            SetCycle(11, 1); // Falling Animation
         }
         else if (dx != 0)
         {
-            SetCycle(0, 6); // Running Animation
+            SetCycle(0, 8); // Running Animation
         }
         else
         {
-            SetCycle(0, 1); // Idle Animation
+            SetCycle(13, 2,3); // Idle Animation
         }
         Animate(0.3f);
     }
