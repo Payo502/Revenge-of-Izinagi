@@ -8,12 +8,13 @@ using GXPEngine;
 using GXPEngine.Core;
 using TiledMapParser;
 
+
 public class Player : AnimationSprite
 {
     public event Action PlayerDead;
 
     const int maxHealth = 10;
-    int health;
+    public int health;
 
     float speedX = 5f;
 
@@ -45,7 +46,7 @@ public class Player : AnimationSprite
     int lastBlock = 0;
 
 
-    public Player(TiledObject obj = null) : base("Ninja.png", 15, 1)
+    public Player(String filename, int cols, int rows, TiledObject obj = null) : base("Ninja.png", 15, 1)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
@@ -151,7 +152,7 @@ public class Player : AnimationSprite
         }
         else if (vy < 0)
         {
-            SetCycle(9, 3,4); // Jumping Animation
+            SetCycle(9, 3, 4); // Jumping Animation
 
         }
         else if (vy > 0)
@@ -164,7 +165,7 @@ public class Player : AnimationSprite
         }
         else
         {
-            SetCycle(13, 2,3); // Idle Animation
+            SetCycle(13, 2, 3); // Idle Animation
         }
         Animate(0.3f);
     }
@@ -207,7 +208,7 @@ public class Player : AnimationSprite
                 if (Time.time > lastShoot + shootDelay)
                 {
                     Bullet bullet = new Bullet(_mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
-                    bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y - height / 5);
+                    bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y );
                     parent.LateAddChild(bullet);
                     lastShoot = Time.time;
                 }

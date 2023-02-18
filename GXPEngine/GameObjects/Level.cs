@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GXPEngine;
+using GXPEngine.Core;
 using TiledMapParser;
 
 
@@ -15,23 +16,20 @@ public class Level : GameObject
     Player player;
     GameData gameData;
 
-
     bool respawn = false;
 
     HUD hud = new HUD();
-    //EnemySpawnManager enemySpawn = new EnemySpawnManager(filename,cols,rows);
+    EnemySpawnManager enemySpawn;
 
-    public Level(string filename,GameData pGameData)
+    public Level(string filename, GameData pGameData)
     {
-        gameData=pGameData;
+        gameData = pGameData;
         Console.WriteLine("---Creating new Level Object");
         currentLevelName = filename;
         loader = new TiledLoader(filename);
 
-        
         hud.SetGameData(gameData);
         this.AddChild(hud);
-        
 
         CreateLevel();
     }
@@ -39,7 +37,6 @@ public class Level : GameObject
     void CreateLevel(bool includeImageLayers = true)
     {
         Console.WriteLine("Spawning level elements: ");
-
 
         loader.autoInstance = true;
         loader.addColliders = false;
@@ -54,13 +51,6 @@ public class Level : GameObject
 
         AddChild(hud);
 
-        //void SetupHUD()
-        //{
-        //    if (hud == null) hud = game.FindObjectOfType<HUD>();
-        //    float percentage = 1f * health / maxHealth;
-        //    hud.AddPlayerHealthBar(percentage, health);
-        //}
-
         player = FindObjectOfType<Player>();
         if (player != null)
         {
@@ -73,7 +63,8 @@ public class Level : GameObject
             Console.WriteLine("Player is not found!");
         }
 
-
+        enemySpawn = new EnemySpawnManager();
+        AddChild(enemySpawn);
     }
 
     void SetPlayer()
@@ -87,13 +78,13 @@ public class Level : GameObject
         }
 
         Pickup[] pickups = FindObjectsOfType<Pickup>();
-        foreach(Pickup pickup in pickups)
+        foreach (Pickup pickup in pickups)
         {
             pickup.CheckIfPickedByPlayer(player);
         }
 
-        Player[] players= FindObjectsOfType<Player>();
-        foreach(Player player in players)
+        Player[] players = FindObjectsOfType<Player>();
+        foreach (Player player in players)
         {
             player.SetHUD(hud);
         }
@@ -130,7 +121,7 @@ public class Level : GameObject
 
     void Scrolling()
     {
-        int boundary = game.width/2;
+        int boundary = game.width / 2;
         int bottomboundary = 128;
         if (player != null && player.x + x < boundary)
         {
@@ -154,6 +145,7 @@ public class Level : GameObject
     {
         Scrolling();
         SetPlayer();
+        //SpawnEnemyAtPosition();
     }
 
 

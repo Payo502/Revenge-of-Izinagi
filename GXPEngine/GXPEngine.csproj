@@ -49,7 +49,8 @@
     <Compile Include="GameObjects\HUD.cs" />
     <Compile Include="GameObjects\Level.cs" />
     <Compile Include="Enemies\Oni.cs" />
-    <Compile Include="GameObjects\Pickup.cs" />
+    <Compile Include="Pickups\HealthPotion.cs" />
+    <Compile Include="Pickups\Pickup.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Enemies\Shinigami.cs" />
     <Compile Include="Enemies\Zombie.cs" />

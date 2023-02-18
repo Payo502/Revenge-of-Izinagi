@@ -14,13 +14,13 @@ public class Pickup : AnimationSprite
 
     Player player;
 
-    public Pickup(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
+    public Pickup(string filename, int cols, int rows, int healthPotion, TiledObject obj = null) : base(filename, cols, rows)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
     }
 
-    public void Grab()
+    protected virtual void Grab()
     {
         Console.WriteLine("Pickup grabbed!");
         LateDestroy();
@@ -37,14 +37,15 @@ public class Pickup : AnimationSprite
         }
     }
 
-    void Update()
+
+    protected void Animate()
     {
-        Gravity();
+        Animate(0.1f);
     }
 
     public void CheckIfPickedByPlayer(Player pPlayer)
     {
-        pPlayer = player;
+        player = pPlayer;
         GameObject[] collisions = GetCollisions();
         foreach (GameObject col in collisions)
         {
@@ -53,6 +54,12 @@ public class Pickup : AnimationSprite
                 Grab();
             }
         }
+    }
+
+    protected void Update()
+    {
+        Gravity();
+        Animate();
     }
 
 }

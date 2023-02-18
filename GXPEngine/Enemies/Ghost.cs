@@ -9,11 +9,12 @@ using TiledMapParser;
 
 public class Ghost : Enemy
 {
-    Player player;
+    Player player; 
+
 
     public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows, 5, 1, 3)
     {
-
+        
     }
 
     void CheckCollisions()

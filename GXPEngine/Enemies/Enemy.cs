@@ -48,6 +48,31 @@ public class Enemy : AnimationSprite
         }
     }
 
+    public static Enemy Clone(Enemy original)
+    {
+        Enemy clone = null;
+        if (original is Zombie)
+        {
+            clone = new Zombie("square.png", 1, 1);
+        }
+        else if (original is Shinigami)
+        {
+            clone = new Shinigami("checkers.png", 1, 1);
+        }
+        else if (original is Oni)
+        {
+            clone = new Oni("Oni-75%.png", 5, 1);
+        }
+        else if (original is Ghost)
+        {
+            clone = new Ghost("circle.png", 1, 1);
+        }
+        clone.SetXY(original.x, original.y);
+        return clone;
+    }
+
+
+
     protected void TakeDamage(int damage)
     {
         health -= damage;
@@ -82,6 +107,17 @@ public class Enemy : AnimationSprite
 
     protected void Die()
     {
+        HealthPotion healthPotion;
+        int randPotion = Utils.Random(0, 2);
+        switch (randPotion)
+        {
+            case 0:
+                healthPotion = new HealthPotion("healthPotion.png", 6, 1,player);
+                parent.AddChild(healthPotion);
+                healthPotion.SetXY(x, y);
+                break;
+
+        }
         LateDestroy();
     }
 
