@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using GXPEngine;
 using GXPEngine.Core;
 using TiledMapParser;
@@ -12,7 +13,7 @@ public class Enemy : AnimationSprite
     float gravity = 0.3f;
     float vy;
 
-    Player player;
+    protected Player player;
 
     protected int health;
     protected int attackPower;
@@ -25,7 +26,7 @@ public class Enemy : AnimationSprite
     EasyDraw hpBar = new EasyDraw(100, 100, false);
 
 
-    public Enemy(string filename, int cols, int rows, int health = 0, int attackPower = 0, int enemySpeed = 0, int scoreDead = 0, TiledObject obj = null) : base(filename, cols, rows)
+    public Enemy(string filename, int cols, int rows, int health = 0, int attackPower = 0, int enemySpeed = 0, TiledObject obj = null) : base(filename, cols, rows)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
@@ -48,12 +49,13 @@ public class Enemy : AnimationSprite
         }
     }
 
+
     public static Enemy Clone(Enemy original)
     {
         Enemy clone = null;
         if (original is Zombie)
         {
-            clone = new Zombie("square.png", 1, 1);
+            clone = new Zombie("zombie.png", 5, 1);
         }
         else if (original is Shinigami)
         {
@@ -61,7 +63,7 @@ public class Enemy : AnimationSprite
         }
         else if (original is Oni)
         {
-            clone = new Oni("Oni-75%.png", 5, 1);
+            clone = new Oni("Oni-Sheet.png", 13, 1);
         }
         else if (original is Ghost)
         {
@@ -71,6 +73,18 @@ public class Enemy : AnimationSprite
         return clone;
     }
 
+    protected void CheckCollisions()
+    {
+        GameObject[] collisions = GetCollisions();
+        foreach (GameObject col in collisions)
+        {
+            if (col is Bullet)
+            {
+                TakeDamage(1);
+                col.Destroy();
+            }
+        }
+    }
 
 
     protected void TakeDamage(int damage)
@@ -118,17 +132,26 @@ public class Enemy : AnimationSprite
                 break;
 
         }
+        AddScore();
+
         LateDestroy();
+    }
+
+    protected virtual void AddScore()
+    {
+        Player.score += 100;
+        Console.WriteLine(Player.score);
     }
 
     protected float HorizonotalMovement(Player pPlayer)
     {
         player = pPlayer;
         float dx = player.x - x;
+        Console.WriteLine(dx);
         return dx;
     }
 
-    protected float VerticalMovement(Player pPlayer)
+    public float VerticalMovement(Player pPlayer)
     {
         player = pPlayer;
         float dy = player.y - y;
@@ -162,11 +185,17 @@ public class Enemy : AnimationSprite
         hpBar.Rect(0, 0, 20.0f * (float)health / (float)5, 3);
     }
 
+    public int GetAttackPower()
+    {
+        return attackPower;
+    }
+
     protected virtual void Update()
     {
         //CheckCollisions();
-        DamagePlayer(player);
+        //DamagePlayer(player);
         hpBar.SetXY(0 - 10, 0);
+        CheckCollisions();
     }
 
 

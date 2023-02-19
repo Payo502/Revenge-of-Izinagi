@@ -8,23 +8,15 @@ using TiledMapParser;
 
 public class Shinigami : Enemy
 {
-    public Shinigami(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows, 5, Utils.Random(1, 5), 3)
+    int shinigamiScore = 200;
+    public Shinigami(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows, 5, 5,2)
     {
 
     }
-
-    void CheckCollisions()
+    protected override void AddScore()
     {
-        GameObject[] collisions = GetCollisions();
-        foreach (GameObject col in collisions)
-        {
-            if (col is Bullet)
-            {
-                TakeDamage(1);
-                col.Destroy();
-                Console.WriteLine("Shinigami health remaining {0}", health);
-            }
-        }
+        Player.score += shinigamiScore;
+        Console.WriteLine(Player.score);
     }
 
     protected override void Update()

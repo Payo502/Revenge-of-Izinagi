@@ -16,22 +16,6 @@ public class Zombie : Enemy
 
     }
 
-   void CheckCollisions()
-    {
-        GameObject[] collisions = GetCollisions();
-        foreach (GameObject col in collisions) {
-            if (col is Bullet) {
-                TakeDamage(1);
-                col.Destroy();
-                Console.WriteLine("Zombie health remaining {0}", health);
-            }
-        
-        
-        }
-
-
-    }
-
     protected override void Update()
     {
         base.Update();

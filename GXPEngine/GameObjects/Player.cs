@@ -13,10 +13,12 @@ public class Player : AnimationSprite
 {
     public event Action PlayerDead;
 
+    public static int score = 0;
+
     const int maxHealth = 10;
     public int health;
 
-    float speedX = 5f;
+    float speedX = 7f;
 
     int bulletSpeed = 8;
 
@@ -30,15 +32,15 @@ public class Player : AnimationSprite
     GameData gamedata;
 
     float dashTime = 500f;
-    float dashSpeed = 0.5f;
+    float dashSpeed = 1f;
     bool isDashing = false;
     float dashTimer = 0f;
     bool facingLeft;
 
-    int dashDelay = 1000;
+    int dashDelay = 500;
     int lastDash = 0;
 
-    int shootDelay = 200;
+    int shootDelay = 150;
     int lastShoot = 0;
 
     bool isBlocking = false;
@@ -46,7 +48,7 @@ public class Player : AnimationSprite
     int lastBlock = 0;
 
 
-    public Player(String filename, int cols, int rows, TiledObject obj = null) : base("Ninja.png", 15, 1)
+    public Player(String filename, int cols, int rows, TiledObject obj = null) : base("Ninja.png", 14, 1)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
@@ -144,30 +146,64 @@ public class Player : AnimationSprite
 
         if (isDashing)
         {
-            SetCycle(12, 1); // Dashing Animation
+            AnimateDashing();
         }
         else if (isBlocking)
         {
-            SetCycle(9, 1); // Blocking Animation
+            AnimateBlocking();
         }
         else if (vy < 0)
         {
-            SetCycle(9, 3, 4); // Jumping Animation
-
+            AnimateJumping();
         }
         else if (vy > 0)
         {
-            SetCycle(11, 1); // Falling Animation
+            AnimateFalling();
         }
         else if (dx != 0)
         {
-            SetCycle(0, 8); // Running Animation
+            AnimateRunning();
         }
         else
         {
-            SetCycle(13, 2, 3); // Idle Animation
+            AnimateIdle();
         }
+    }
+
+    void AnimateDashing()
+    {
+        SetCycle(11, 1); // Dashing Animation
         Animate(0.3f);
+    }
+
+    void AnimateBlocking()
+    {
+        SetCycle(8, 1); // Blocking Animation
+        Animate(0.3f);
+    }
+
+    void AnimateJumping()
+    {
+        SetCycle(8, 3); // Jumping Animation
+        Animate(0.08f);
+    }
+
+    void AnimateFalling()
+    {
+        SetCycle(10, 1); // Falling Animation
+        Animate(0.3f);
+    }
+
+    void AnimateRunning()
+    {
+        SetCycle(0, 7); // Running Animation
+        Animate(0.25f);
+    }
+
+    void AnimateIdle()
+    {
+        SetCycle(12, 2); // Idle Animation
+        Animate(0.1f);
     }
 
     public void TakeDamage(int damage)
@@ -208,7 +244,7 @@ public class Player : AnimationSprite
                 if (Time.time > lastShoot + shootDelay)
                 {
                     Bullet bullet = new Bullet(_mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
-                    bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y );
+                    bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y);
                     parent.LateAddChild(bullet);
                     lastShoot = Time.time;
                 }
@@ -221,7 +257,7 @@ public class Player : AnimationSprite
     {
         Move();
         Shoot();
-        hud.SetXY(x - width / 2, y - height);
+        hud.SetXY(x - width/2, y+ height/2);
         Block();
         //SetupHUD();
     }
