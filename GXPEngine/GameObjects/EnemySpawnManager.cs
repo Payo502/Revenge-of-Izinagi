@@ -12,19 +12,19 @@ public class EnemySpawnManager : GameObject
     Vector2 spawnPoint1 = new Vector2(200, 300);
     Vector2 spawnPoint2 = new Vector2(2000, 300);
 
-    float spawnDelay = 5000;
+    float spawnDelay = 10000;
     float lastSpawnTime = 0f;
 
     Enemy[] enemyType = new Enemy[]
     {
-        new Zombie("zombie.png",5,1),
+        new Zombie("zombie.png",8,1),
         new Shinigami("checkers.png",1,1),
         new Oni("Oni-Sheet.png",13,1),
-        new Ghost("circle.png",1,1)
+        new Ghost("ghost.png",3,1)
     };
 
 
-    int[] enemyProbabilities = new int[] { 0, 0, 100, 0 };
+    int[] enemyProbabilities = new int[] { 30, 0, 30, 30 };
 
 
     List<Enemy> activeEnemies = new List<Enemy>();
@@ -60,7 +60,6 @@ public class EnemySpawnManager : GameObject
         parent.AddChild(enemy);
         activeEnemies.Add(enemy);
         Console.WriteLine(activeEnemies);
-
 
     }
 

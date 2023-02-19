@@ -9,34 +9,12 @@ using TiledMapParser;
 
 public class Ghost : Enemy
 {
-    Player player;
 
     int ghostScore = 300;
 
-    public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base("ghost.png",3,1, 5, 0)
+    public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base(filename,cols,rows, 5, 0,1)
     {
         
-    }
-    void Animate()
-    {
-        float dx = HorizonotalMovement(player);
-        if (dx < 0)
-        {
-            AnimateWalking();
-            Mirror(true, false);
-        }
-        if (dx > 0)
-        {
-            AnimateWalking();
-            Mirror(false, false);
-        }
-        
-    }
-
-    void AnimateWalking()
-    {
-        SetCycle(0, 3);
-        Animate(0.1f);
     }
 
     protected override void AddScore()
@@ -45,6 +23,26 @@ public class Ghost : Enemy
         Console.WriteLine(Player.score);
     }
 
+    void Animate()
+    {
+        float dx = HorizonotalMovement(player);
+        if(dx < 0)
+        {
+            AnimateFly();
+            Mirror(true, false);
+        }
+        if(dx > 0)
+        {
+            AnimateFly();
+            Mirror(false, false);
+        }
+    }
+
+    void AnimateFly()
+    {
+        SetCycle(0, 3);
+        Animate(0.1f);
+    }
     public override void ChasePlayer(Player pPlayer, int enemySpeed)
     {
         player = pPlayer;
@@ -60,7 +58,7 @@ public class Ghost : Enemy
     protected override void Update()
     {
         base.Update();
-        //Animate();
+        Animate();
         ChasePlayer(player,enemySpeed);
     }
 }

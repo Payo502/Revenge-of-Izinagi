@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,10 @@ using TiledMapParser;
 public class Oni : Enemy
 {
     int oniScore = 500;
+    int lastHitTime = 0;
+    bool isAttacking = false;
 
-    public Oni(string filename, int cols, int rows, TiledObject obj = null) : base("Oni-Sheet.png", 13, 1, 10, 0, 1)
+    public Oni(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows, 10, 1, 1)
     {
 
     }
@@ -19,15 +22,28 @@ public class Oni : Enemy
     void Animate()
     {
         float dx = HorizonotalMovement(player);
-        if (dx < 0)
+        if (dx < width / 2 && dx > -width/2)
         {
-            AnimateWalking();
-            Mirror(true, false);
+            if (player.x > this.x)
+            {
+                Mirror(false, false);
+            }
+            else
+            {
+                Mirror(true, false);
+            }
+            AnimateAttack();
+            isAttacking= true;
         }
-        if (dx > 0)
+        if (dx > 0 && dx > width/2)
         {
             AnimateWalking();
             Mirror(false, false);
+        }
+        if (dx < 0 && dx < -width/2)
+        {
+            AnimateWalking();
+            Mirror(true, false);
         }
     }
 
@@ -36,16 +52,46 @@ public class Oni : Enemy
         SetCycle(0, 7);
         Animate(0.1f);
     }
+
+    void AnimateAttack()
+    {
+        SetCycle(8,5);
+        Animate(0.05f);
+    }
+
     protected override void AddScore()
     {
         //base.AddScore();
         Player.score += oniScore;
         Console.WriteLine(Player.score);
     }
-    protected override void Update()
+
+
+    public override void DamagePlayer(Player pPlayer)
     {
-        base.Update();
-        Animate();
+        player = pPlayer;
+        GameObject[] collisions = GetCollisions();
+        foreach (GameObject col in collisions)
+        {
+            if (col is Player)
+            {
+                if (isAttacking && Time.time - lastHitTime >= 2000f)
+                {
+                    lastHitTime = Time.time;
+                    player.TakeDamage(attackPower);
+                    Console.WriteLine(attackPower);
+                }
+            }
+        }
     }
+
+
+
+protected override void Update()
+{
+    base.Update();
+    Animate();
+}
+    
 }
 

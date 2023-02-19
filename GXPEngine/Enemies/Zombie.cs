@@ -16,10 +16,32 @@ public class Zombie : Enemy
 
     }
 
+    void Animate()
+    {
+        float dx = HorizonotalMovement(player);
+        if (dx < 0)
+        {
+            AnimateWalking();
+            Mirror(true, false);
+        }
+        if (dx > 0)
+        {
+            AnimateWalking();
+            Mirror(false, false);
+        }
+    }
+
+    void AnimateWalking()
+    {
+        SetCycle(0, 7);
+        Animate(0.1f);
+    }
+
     protected override void Update()
     {
         base.Update();
         CheckCollisions();
+        Animate();
     }
 }
 

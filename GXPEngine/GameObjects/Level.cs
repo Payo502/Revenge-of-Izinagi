@@ -21,6 +21,7 @@ public class Level : GameObject
     HUD hud = new HUD();
     EnemySpawnManager enemySpawn;
 
+
     public Level(string filename, GameData pGameData)
     {
         gameData = pGameData;
@@ -139,10 +140,6 @@ public class Level : GameObject
         {
             y = game.height - bottomboundary - player.y;
         }
-
-        /*        Camera playerCam = new Camera(300, 500, 500, 300);
-                playerCam.scale= 1;
-                player.AddChild(playerCam);*/
     }
 
     void Update()

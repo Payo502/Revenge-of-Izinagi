@@ -19,7 +19,7 @@ public class Enemy : AnimationSprite
     protected int attackPower;
     public int enemySpeed;
 
-    int delay = 500;
+    int delay = 5000;
     int lastHitTime = 0;
 
 
@@ -55,7 +55,7 @@ public class Enemy : AnimationSprite
         Enemy clone = null;
         if (original is Zombie)
         {
-            clone = new Zombie("zombie.png", 5, 1);
+            clone = new Zombie("zombie.png", 8, 1);
         }
         else if (original is Shinigami)
         {
@@ -67,7 +67,7 @@ public class Enemy : AnimationSprite
         }
         else if (original is Ghost)
         {
-            clone = new Ghost("circle.png", 1, 1);
+            clone = new Ghost("ghost.png", 3, 1);
         }
         clone.SetXY(original.x, original.y);
         return clone;
@@ -100,13 +100,13 @@ public class Enemy : AnimationSprite
         ShowHealthBar();
     }
 
-    public void DamagePlayer(Player pPlayer)
+    public virtual void DamagePlayer(Player pPlayer)
     {
         player = pPlayer;
         GameObject[] collisions = GetCollisions();
-        for (int i = 0; i < collisions.Length; i++)
+        foreach (GameObject col in collisions)
         {
-            if (collisions[i] is Player)
+            if (col is Player)
             {
                 if (Time.time > lastHitTime + delay)
                 {
@@ -116,7 +116,6 @@ public class Enemy : AnimationSprite
                 }
             }
         }
-
     }
 
     protected void Die()
@@ -126,7 +125,7 @@ public class Enemy : AnimationSprite
         switch (randPotion)
         {
             case 0:
-                healthPotion = new HealthPotion("healthPotion.png", 6, 1,player);
+                healthPotion = new HealthPotion("healthPotion.png", 6, 1, player);
                 parent.AddChild(healthPotion);
                 healthPotion.SetXY(x, y);
                 break;
@@ -147,7 +146,6 @@ public class Enemy : AnimationSprite
     {
         player = pPlayer;
         float dx = player.x - x;
-        Console.WriteLine(dx);
         return dx;
     }
 
@@ -189,6 +187,7 @@ public class Enemy : AnimationSprite
     {
         return attackPower;
     }
+
 
     protected virtual void Update()
     {
