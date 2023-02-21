@@ -123,6 +123,7 @@ public class Enemy : AnimationSprite
     protected void Die()
     {
         HealthPotion healthPotion;
+        DoubleXP doubleXP;
         int randPotion = Utils.Random(0, 2);
         switch (randPotion)
         {
@@ -130,6 +131,11 @@ public class Enemy : AnimationSprite
                 healthPotion = new HealthPotion(player);
                 parent.AddChild(healthPotion);
                 healthPotion.SetXY(x, y);
+                break;
+            case 1:
+                doubleXP = new DoubleXP(player);
+                parent.AddChild(doubleXP);
+                doubleXP.SetXY(x, y);
                 break;
 
         }

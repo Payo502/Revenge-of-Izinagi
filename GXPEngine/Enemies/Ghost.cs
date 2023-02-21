@@ -19,7 +19,14 @@ public class Ghost : Enemy
 
     protected override void AddScore()
     {
-        Player.score += ghostScore;
+        if (player.HasDoubleXP())
+        {
+            Player.score += ghostScore * 2;
+        }
+        else
+        {
+            Player.score += ghostScore;
+        }
         Console.WriteLine(Player.score);
     }
 

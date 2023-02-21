@@ -23,6 +23,7 @@ public class Bullet : Sprite
         this.vx = pVx;
         this.vy = pVy;
         owner = pOwner;
+        scale = 0.75f;
 
     }
 

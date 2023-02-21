@@ -47,6 +47,9 @@ public class Player : AnimationSprite
     int blockDelay = 2000;
     int lastBlock = 0;
 
+    private bool hasDoubleXP = false;
+    private float doubleXPTimer = 0f;
+
     Sound katanaSound = new Sound("katana_woosh.mp3", false, false);
     Sound dyingSound = new Sound("player_dying.mp3", false, false);
 
@@ -57,6 +60,7 @@ public class Player : AnimationSprite
         SetCycle(13, 2); // Idle Animation
 
         health = maxHealth;
+
     }
 
     float GetHorizonatalMovement()
@@ -144,7 +148,8 @@ public class Player : AnimationSprite
     {
         hud = pHud;
         float percentage = 1f * health / maxHealth;
-        hud.AddPlayerHealthBar(percentage, health);
+        hud.AddPlayerHealthBar(percentage);
+        hud.SetScore(score);
     }
 
     void Animate()
@@ -219,7 +224,7 @@ public class Player : AnimationSprite
         {
             health -= damage;
             float percentage = 1f * health / maxHealth;
-            hud.AddPlayerHealthBar(percentage, health);
+            hud.AddPlayerHealthBar(percentage);
             if (health <= 0)
             {
                 dyingSound.Play();
@@ -254,7 +259,11 @@ public class Player : AnimationSprite
                 {
                     katanaSound.Play();
                     Bullet bullet = new Bullet(_mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
-                    bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y);
+                    bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y - height/5);
+                    if (_mirrorX)
+                    {
+                        bullet.scaleX = -1;
+                    }
                     parent.LateAddChild(bullet);
                     lastShoot = Time.time;
                 }
@@ -263,6 +272,28 @@ public class Player : AnimationSprite
 
         }
     }
+    void DoubleXP()
+    {
+        if (hasDoubleXP)
+        {
+            doubleXPTimer -= Time.deltaTime;
+            if (doubleXPTimer <= 0f)
+            {
+                hasDoubleXP = false;
+                doubleXPTimer = 0f;
+            }
+        }
+    }
+    public void ActivateDoubleXP(float duration)
+    {
+        hasDoubleXP = true;
+        doubleXPTimer = duration;
+    }
+
+    public bool HasDoubleXP()
+    {
+        return hasDoubleXP;
+    }
 
     void Update()
     {
@@ -270,6 +301,7 @@ public class Player : AnimationSprite
         Shoot();
         hud.SetXY(x-game.width/2 - width/2,y - game.height/2 - 20);
         Block();
+        DoubleXP();
         //SetupHUD();
     }
 }
