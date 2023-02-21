@@ -12,9 +12,9 @@ public class Ghost : Enemy
 
     int ghostScore = 300;
 
-    public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base(filename,cols,rows, 5, 0,1)
+    public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base(filename,cols,rows, 5, 2,1)
     {
-        
+        scale= 0.75f;
     }
 
     protected override void AddScore()

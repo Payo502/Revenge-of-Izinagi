@@ -9,22 +9,25 @@ using TiledMapParser;
 
 public class EnemySpawnManager : GameObject
 {
-    Vector2 spawnPoint1 = new Vector2(200, 300);
-    Vector2 spawnPoint2 = new Vector2(2000, 300);
+    Vector2 spawnPoint1 = new Vector2(216, 352);
+    Vector2 spawnPoint2 = new Vector2(1889, 300);
 
-    float spawnDelay = 10000;
+    float spawnDelay = 4000;
+    float spawnDelayDecrement = 50;
     float lastSpawnTime = 0f;
+
 
     Enemy[] enemyType = new Enemy[]
     {
         new Zombie("zombie.png",8,1),
-        new Shinigami("checkers.png",1,1),
+        new Shinigami("shinigami.png",8,1),
         new Oni("Oni-Sheet.png",13,1),
         new Ghost("ghost.png",3,1)
     };
 
 
-    int[] enemyProbabilities = new int[] { 30, 0, 30, 30 };
+    int[] enemyProbabilities = new int[] { 70, 17, 8, 5 };
+    int[] enemyProbabilityChange = new int[] { -2, -2, 2, 2 };
 
 
     List<Enemy> activeEnemies = new List<Enemy>();
@@ -33,6 +36,7 @@ public class EnemySpawnManager : GameObject
     {
         SetXY(0, 0);
         lastSpawnTime = Time.time;
+
     }
 
     private Enemy GetRandomEnemy()
@@ -73,6 +77,21 @@ public class EnemySpawnManager : GameObject
             Enemy enemyToSpawn = GetRandomEnemy();
             Vector2 spawnPoint = rand < 50 ? new Vector2(200, 300) : new Vector2(2000, 300);
             SpawnEnemyAtPosition(spawnPoint, enemyToSpawn);
+
+            //Decrement spawn delay
+            if(spawnDelay < 2000)
+            {
+                spawnDelayDecrement= 0;
+            }
+            spawnDelay -= spawnDelayDecrement;
+            Console.WriteLine("console spawn delay " + spawnDelay);
+
+            // Adjust enemy probabilities over time
+            for (int i = 0; i < enemyProbabilities.Length; i++)
+            {
+                enemyProbabilities[i] += enemyProbabilityChange[i];
+                //Console.WriteLine("Enemy probabilities "+ enemyProbabilities);
+            }
         }
     }
 

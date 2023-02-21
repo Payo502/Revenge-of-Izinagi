@@ -7,7 +7,7 @@ using GXPEngine;
 
 public class PlayerData
 {
-    const int startLives = 3;
+    const int startLives = 1;
 
     int _lives = 0;
 

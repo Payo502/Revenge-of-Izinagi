@@ -29,6 +29,7 @@ public class Level : GameObject
         currentLevelName = filename;
         loader = new TiledLoader(filename);
 
+
         hud.SetGameData(gameData);
         this.AddChild(hud);
 
@@ -50,12 +51,17 @@ public class Level : GameObject
         loader.LoadTileLayers(1);
         loader.LoadObjectGroups();
 
+
         AddChild(hud);
+
 
         player = FindObjectOfType<Player>();
         if (player != null)
         {
             Console.WriteLine("Player found!!");
+            Camera cam1 = new Camera(0, 0, 683, 384);
+            cam1.scale= 1.5f;
+            player.AddChild(cam1);
             player.PlayerDead += PlayerDeath;
 
         }
@@ -76,6 +82,7 @@ public class Level : GameObject
             enemy.ChasePlayer(player, enemy.enemySpeed);
             enemy.DamagePlayer(player);
 
+
         }
 
         Pickup[] pickups = FindObjectsOfType<Pickup>();
@@ -88,6 +95,7 @@ public class Level : GameObject
         foreach (Player player in players)
         {
             player.SetHUD(hud);
+
         }
     }
 
@@ -110,7 +118,7 @@ public class Level : GameObject
         if (data.lives <= 0)
         {
             data.Reset();
-            ((MyGame)game).LoadLevel("mapLevel1.tmx");
+            ((MyGame)game).LoadLevel("gameOver.tmx");
         }
 
         else
@@ -144,7 +152,7 @@ public class Level : GameObject
 
     void Update()
     {
-        Scrolling();
+        //Scrolling();
         SetPlayer();
         //SpawnEnemyAtPosition();
     }

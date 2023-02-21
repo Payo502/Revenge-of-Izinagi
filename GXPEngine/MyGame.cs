@@ -25,6 +25,8 @@ public class MyGame : Game
 
         OnAfterStep += CheckLevel;
 
+        game.RenderMain = false;
+
     }
 
     void DestroyAll()

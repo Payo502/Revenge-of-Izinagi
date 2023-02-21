@@ -20,9 +20,9 @@ public class Player : AnimationSprite
 
     float speedX = 7f;
 
-    int bulletSpeed = 8;
+    int bulletSpeed = 9;
 
-    int jumpStrength = 10;
+    int jumpStrength = 11;
     float gravity = 0.3f;
     float vy;
 
@@ -48,6 +48,7 @@ public class Player : AnimationSprite
     int lastBlock = 0;
 
 
+
     public Player(String filename, int cols, int rows, TiledObject obj = null) : base("Ninja.png", 14, 1)
     {
         collider.isTrigger = true;
@@ -61,7 +62,7 @@ public class Player : AnimationSprite
     {
         float dx = 0;
 
-        if (Input.GetKeyDown(Key.L) && !isDashing)
+        if (Input.GetKeyDown(Key.L) && !isDashing && !isBlocking)
         {
             if (Time.time > lastDash + dashDelay)
             {
@@ -106,7 +107,9 @@ public class Player : AnimationSprite
 
         float dx = GetHorizonatalMovement();
 
+
         vy += gravity;
+
 
         if (!isBlocking)
         {
@@ -130,8 +133,11 @@ public class Player : AnimationSprite
             }
         }
 
+       
         Animate();
     }
+
+
 
     public void SetHUD(HUD pHud)
     {
@@ -208,7 +214,7 @@ public class Player : AnimationSprite
 
     public void TakeDamage(int damage)
     {
-        if (!isBlocking)
+        if (!isBlocking && !isDashing)
         {
             health -= damage;
             float percentage = 1f * health / maxHealth;
@@ -258,7 +264,7 @@ public class Player : AnimationSprite
     {
         Move();
         Shoot();
-        hud.SetXY(x - width/2, y+ height/2);
+        hud.SetXY(x - width / 2, y + height / 2);
         Block();
         //SetupHUD();
     }

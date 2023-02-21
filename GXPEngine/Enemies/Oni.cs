@@ -16,7 +16,7 @@ public class Oni : Enemy
 
     public Oni(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows, 10, 1, 1)
     {
-
+        scale = 0.75f;
     }
 
     void Animate()
@@ -56,7 +56,7 @@ public class Oni : Enemy
     void AnimateAttack()
     {
         SetCycle(8,5);
-        Animate(0.05f);
+        Animate(0.1f);
     }
 
     protected override void AddScore()

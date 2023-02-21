@@ -19,7 +19,7 @@ public class Enemy : AnimationSprite
     protected int attackPower;
     public int enemySpeed;
 
-    int delay = 5000;
+    int delay = 1000;
     int lastHitTime = 0;
 
 
@@ -59,7 +59,7 @@ public class Enemy : AnimationSprite
         }
         else if (original is Shinigami)
         {
-            clone = new Shinigami("checkers.png", 1, 1);
+            clone = new Shinigami("shinigami.png", 8, 1);
         }
         else if (original is Oni)
         {
@@ -144,6 +144,7 @@ public class Enemy : AnimationSprite
 
     protected float HorizonotalMovement(Player pPlayer)
     {
+
         player = pPlayer;
         float dx = player.x - x;
         return dx;
