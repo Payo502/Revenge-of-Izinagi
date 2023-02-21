@@ -40,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameData.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameObjects\Button.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\Ghost.cs" />
     <Compile Include="GameObjects\EnemySpawnManager.cs" />
+    <Compile Include="GameData.cs" />
     <Compile Include="GameObjects\HUD.cs" />
     <Compile Include="GameObjects\Lava.cs" />
     <Compile Include="GameObjects\Level.cs" />

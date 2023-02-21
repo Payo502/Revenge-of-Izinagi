@@ -17,13 +17,12 @@ internal class Button : AnimationSprite
 
     void CheckIfClicked()
     {
-        if (HitTestPoint(Input.mouseX, Input.mouseY))
+
+        if (Input.GetKeyDown(Key.M))
         {
-            if (Input.GetMouseButton(0))
-            {
-                ((MyGame)game).LoadLevel(levelName);
-            }
+            ((MyGame)game).LoadLevel(levelName);
         }
+
     }
 
     void Update()

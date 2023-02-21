@@ -21,6 +21,7 @@ public class Level : GameObject
     HUD hud = new HUD();
     EnemySpawnManager enemySpawn;
 
+    Sound backgroundMusic = new Sound("Epic_Japanese_Music_Shadow_Ninja.mp3", false, true);
 
     public Level(string filename, GameData pGameData)
     {
@@ -30,8 +31,8 @@ public class Level : GameObject
         loader = new TiledLoader(filename);
 
 
-        hud.SetGameData(gameData);
-        this.AddChild(hud);
+        //hud.SetGameData(gameData);
+        
 
         CreateLevel();
     }
@@ -59,19 +60,25 @@ public class Level : GameObject
         if (player != null)
         {
             Console.WriteLine("Player found!!");
+
+            enemySpawn = new EnemySpawnManager();
+            AddChild(enemySpawn);
+
             Camera cam1 = new Camera(0, 0, 683, 384);
-            cam1.scale= 1.5f;
+            cam1.scale = 1.5f;
             player.AddChild(cam1);
             player.PlayerDead += PlayerDeath;
+            backgroundMusic.Play();
 
         }
         else
         {
             Console.WriteLine("Player is not found!");
+            Camera cam2 = new Camera(0, 0, 683, 384);
+            cam2.SetXY(350, 192);
+            AddChild(cam2);
         }
 
-        enemySpawn = new EnemySpawnManager();
-        AddChild(enemySpawn);
     }
 
     public void SetPlayer()

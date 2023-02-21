@@ -14,6 +14,8 @@ public class Pickup : AnimationSprite
 
     Player player;
 
+    Sound pickupSound = new Sound("item_pickup.mp3", false, false);
+
     public Pickup(string filename, int cols, int rows, int healthPotion, TiledObject obj = null) : base(filename, cols, rows)
     {
         collider.isTrigger = true;
@@ -22,6 +24,7 @@ public class Pickup : AnimationSprite
 
     protected virtual void Grab()
     {
+        pickupSound.Play();
         Console.WriteLine("Pickup grabbed!");
         LateDestroy();
     }

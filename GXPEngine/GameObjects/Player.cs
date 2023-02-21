@@ -15,7 +15,7 @@ public class Player : AnimationSprite
 
     public static int score = 0;
 
-    const int maxHealth = 10;
+    const int maxHealth = 100;
     public int health;
 
     float speedX = 7f;
@@ -47,7 +47,8 @@ public class Player : AnimationSprite
     int blockDelay = 2000;
     int lastBlock = 0;
 
-
+    Sound katanaSound = new Sound("katana_woosh.mp3", false, false);
+    Sound dyingSound = new Sound("player_dying.mp3", false, false);
 
     public Player(String filename, int cols, int rows, TiledObject obj = null) : base("Ninja.png", 14, 1)
     {
@@ -221,6 +222,7 @@ public class Player : AnimationSprite
             hud.AddPlayerHealthBar(percentage, health);
             if (health <= 0)
             {
+                dyingSound.Play();
                 PlayerDead?.Invoke();
             }
         }
@@ -250,6 +252,7 @@ public class Player : AnimationSprite
             {
                 if (Time.time > lastShoot + shootDelay)
                 {
+                    katanaSound.Play();
                     Bullet bullet = new Bullet(_mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
                     bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y);
                     parent.LateAddChild(bullet);
@@ -264,7 +267,7 @@ public class Player : AnimationSprite
     {
         Move();
         Shoot();
-        hud.SetXY(x - width / 2, y + height / 2);
+        hud.SetXY(x-game.width/2 - width/2,y - game.height/2 - 20);
         Block();
         //SetupHUD();
     }

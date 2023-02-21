@@ -14,6 +14,7 @@ public class Enemy : AnimationSprite
     float vy;
 
     protected Player player;
+    HUD scoreHUD;
 
     protected int health;
     protected int attackPower;
@@ -55,19 +56,19 @@ public class Enemy : AnimationSprite
         Enemy clone = null;
         if (original is Zombie)
         {
-            clone = new Zombie("zombie.png", 8, 1);
+            clone = new Zombie();
         }
         else if (original is Shinigami)
         {
-            clone = new Shinigami("shinigami.png", 8, 1);
+            clone = new Shinigami();
         }
         else if (original is Oni)
         {
-            clone = new Oni("Oni-Sheet.png", 13, 1);
+            clone = new Oni();
         }
         else if (original is Ghost)
         {
-            clone = new Ghost("ghost.png", 3, 1);
+            clone = new Ghost();
         }
         clone.SetXY(original.x, original.y);
         return clone;
@@ -91,6 +92,7 @@ public class Enemy : AnimationSprite
     {
         health -= damage;
 
+        //scoreHUD.SetScore(Player.score);
 
         if (health <= 0)
         {
@@ -144,16 +146,23 @@ public class Enemy : AnimationSprite
 
     protected float HorizonotalMovement(Player pPlayer)
     {
-
         player = pPlayer;
-        float dx = player.x - x;
+        float dx=0;
+        if (player != null)
+        {
+            dx = player.x - x;
+        }  
         return dx;
     }
 
     public float VerticalMovement(Player pPlayer)
     {
         player = pPlayer;
-        float dy = player.y - y;
+        float dy = 0;
+        if (player != null)
+        {
+            dy = player.y - y;
+        }
         return dy;
     }
 
@@ -195,6 +204,7 @@ public class Enemy : AnimationSprite
         //CheckCollisions();
         //DamagePlayer(player);
         hpBar.SetXY(0 - 10, 0);
+        //scoreHUD.SetXY(0,0);
         CheckCollisions();
     }
 

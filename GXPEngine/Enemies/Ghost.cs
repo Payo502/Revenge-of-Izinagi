@@ -12,7 +12,7 @@ public class Ghost : Enemy
 
     int ghostScore = 300;
 
-    public Ghost(string filename, int cols, int rows, TiledObject obj = null) : base(filename,cols,rows, 5, 2,1)
+    public Ghost() : base("ghost.png", 3, 1, 5, 2,1)
     {
         scale= 0.75f;
     }
@@ -25,6 +25,7 @@ public class Ghost : Enemy
 
     void Animate()
     {
+        
         float dx = HorizonotalMovement(player);
         if(dx < 0)
         {

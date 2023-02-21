@@ -8,15 +8,16 @@ using System.Collections.Generic;
 public class MyGame : Game
 {
 
-    string startLevel = "mapLevel1.tmx";
+    string startLevel = "startingScreen.tmx";
 
     string nextLevel = null;
     GameData gameData;
 
 
     public readonly PlayerData playerData;
+    
 
-    public MyGame() : base(683, 384, false, false,1366,768,true)
+    public MyGame() : base(683, 384, false, false, 1366, 768,true)
     {
         gameData = new GameData();
         playerData = new PlayerData();

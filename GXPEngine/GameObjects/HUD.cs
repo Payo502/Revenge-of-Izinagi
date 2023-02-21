@@ -17,7 +17,7 @@ public class HUD : GameObject
 
     public HUD()
     {
-        healthBar = new EasyDraw(100, 100, false);
+        healthBar = new EasyDraw(1000, 100, false);
         AddChild(healthBar);
 
         scoreBoard = new EasyDraw(100, 20, false);
@@ -32,23 +32,26 @@ public class HUD : GameObject
         healthBar.ShapeAlign(CenterMode.Min, CenterMode.Min);
         healthBar.NoStroke();
         healthBar.Fill(0, 255, 0);
-        healthBar.Rect(0, 0, 80.0f * healthPercentage, 10);
+        healthBar.Rect(0, 0, 200.0f * healthPercentage, 15);
         healthBar.StrokeWeight(1);
         healthBar.NoFill();
-        healthBar.Rect(0, 0, 80.0f, 0);
+        healthBar.Rect(0, 0, 200.0f, 0);
         healthBar.TextSize(7);
-        healthBar.Fill(255);
+        healthBar.Fill(0);
+        healthBar.Stroke(5);
         healthBar.TextAlign(CenterMode.Min, CenterMode.Min);
-        healthBar.Text(String.Format("              {0}", playerHealth));
+        healthBar.TextSize(10);
+        healthBar.Text(String.Format("                          {0}", playerHealth));
         healthBar.Stroke(1);
         healthBar.NoFill();
-        healthBar.Rect(0, 0, 80.0f, 10);
+        healthBar.Rect(0, 0, 200.0f, 15);
 
     }
 
-    public void SetScore(float enemyScore)
+    public void SetScore(float playerScore)
     {
-        scoreBoard.Text(String.Format("Score: {0}", enemyScore), true);
+        playerScore = Player.score;
+        scoreBoard.Text(String.Format("Score: {0}", playerScore), true);
     }
 
     public void SetGameData(GameData pGameData)

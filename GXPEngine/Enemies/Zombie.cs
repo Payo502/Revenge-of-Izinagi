@@ -11,7 +11,7 @@ public class Zombie : Enemy
 {
 
 
-    public Zombie(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows, 5, 1, 1)
+    public Zombie() : base("zombie.png", 8, 1, 5, 1, 1)
     {
         scale = 0.75f;
     }

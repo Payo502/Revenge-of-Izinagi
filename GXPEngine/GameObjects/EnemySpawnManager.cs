@@ -19,15 +19,15 @@ public class EnemySpawnManager : GameObject
 
     Enemy[] enemyType = new Enemy[]
     {
-        new Zombie("zombie.png",8,1),
-        new Shinigami("shinigami.png",8,1),
-        new Oni("Oni-Sheet.png",13,1),
-        new Ghost("ghost.png",3,1)
+        new Zombie(),
+        new Shinigami(),
+        new Oni(),
+        new Ghost()
     };
 
 
-    int[] enemyProbabilities = new int[] { 70, 17, 8, 5 };
-    int[] enemyProbabilityChange = new int[] { -2, -2, 2, 2 };
+    int[] enemyProbabilities = new int[] { 70,20, 5, 5 };
+    int[] enemyProbabilityChange = new int[] { -2, 1, 2, 2 };
 
 
     List<Enemy> activeEnemies = new List<Enemy>();
@@ -36,7 +36,6 @@ public class EnemySpawnManager : GameObject
     {
         SetXY(0, 0);
         lastSpawnTime = Time.time;
-
     }
 
     private Enemy GetRandomEnemy()
