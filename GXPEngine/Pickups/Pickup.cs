@@ -16,7 +16,7 @@ public class Pickup : AnimationSprite
 
     Sound pickupSound = new Sound("item_pickup.mp3", false, false);
 
-    public Pickup(string filename, int cols, int rows, int healthPotion, TiledObject obj = null) : base(filename, cols, rows)
+    public Pickup(string filename, int cols, int rows, TiledObject obj = null) : base(filename, cols, rows)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);

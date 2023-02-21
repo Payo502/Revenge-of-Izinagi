@@ -127,7 +127,7 @@ public class Enemy : AnimationSprite
         switch (randPotion)
         {
             case 0:
-                healthPotion = new HealthPotion("healthPotion.png", 6, 1, player);
+                healthPotion = new HealthPotion(player);
                 parent.AddChild(healthPotion);
                 healthPotion.SetXY(x, y);
                 break;

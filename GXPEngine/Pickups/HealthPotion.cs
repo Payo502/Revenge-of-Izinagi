@@ -9,7 +9,7 @@ using TiledMapParser;
 public class HealthPotion : Pickup
 {
     Player player;
-    public HealthPotion(string filename, int cols, int rows, Player pPlayer) : base(filename, cols, rows, 5)
+    public HealthPotion(Player pPlayer) : base("healthPotion.png", 6, 1)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
@@ -21,9 +21,9 @@ public class HealthPotion : Pickup
     {
         base.Grab();
         Console.WriteLine("Health Potion grabbed");
-        if (player.health < 10)
+        if (player.health < 100)
         {
-            player.health = 10;
+            player.health = 100;
         }
         Console.WriteLine("Player health is: {0}", player.health);
 
