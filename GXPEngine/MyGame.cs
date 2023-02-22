@@ -5,6 +5,7 @@ using TiledMapParser;
 using GXPEngine.Managers;
 using System.Collections.Generic;
 
+
 public class MyGame : Game
 {
 
@@ -15,9 +16,9 @@ public class MyGame : Game
 
 
     public readonly PlayerData playerData;
-    
 
-    public MyGame() : base(683, 384, false, false, 1366, 768,true)
+
+    public MyGame() : base(683, 384, false, false, 1366, 768, true)
     {
         gameData = new GameData();
         playerData = new PlayerData();
@@ -59,10 +60,10 @@ public class MyGame : Game
         if (nextLevel != null)
         {
             DestroyAll();
-            AddChild(new Level(nextLevel,gameData));
-            AddChild(new HUD());
+            AddChild(new Level(nextLevel, gameData));
             nextLevel = null;
         }
+
     }
 
 

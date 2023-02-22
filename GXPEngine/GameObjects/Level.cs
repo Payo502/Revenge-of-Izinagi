@@ -53,13 +53,15 @@ public class Level : GameObject
         loader.LoadObjectGroups();
 
 
-        AddChild(hud);
+       
 
 
         player = FindObjectOfType<Player>();
         if (player != null)
         {
+
             Console.WriteLine("Player found!!");
+            AddChild(hud);
 
             enemySpawn = new EnemySpawnManager();
             AddChild(enemySpawn);
@@ -125,6 +127,8 @@ public class Level : GameObject
         if (data.lives <= 0)
         {
             data.Reset();
+            Player.score = 0;
+            Player.katanaLevel = 0;
             ((MyGame)game).LoadLevel("gameOver.tmx");
         }
 

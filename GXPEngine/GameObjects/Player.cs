@@ -14,6 +14,7 @@ public class Player : AnimationSprite
     public event Action PlayerDead;
 
     public static int score = 0;
+    public static int katanaLevel = 0;
 
     const int maxHealth = 100;
     public int health;
@@ -40,7 +41,7 @@ public class Player : AnimationSprite
     int dashDelay = 500;
     int lastDash = 0;
 
-    int shootDelay = 150;
+    int shootDelay = 500;
     int lastShoot = 0;
 
     bool isBlocking = false;
@@ -60,6 +61,13 @@ public class Player : AnimationSprite
         SetCycle(13, 2); // Idle Animation
 
         health = maxHealth;
+
+        SetColor(0.5f, 0.5f, 0.5f);
+        Sprite light = new Sprite("circle2.png",false,false);
+        light.SetOrigin(light.width / 2, light.height / 2);
+        light.scale = 3;
+        AddChild(light);
+        light.blendMode = BlendMode.LIGHTING;
 
     }
 
@@ -224,7 +232,6 @@ public class Player : AnimationSprite
         {
             health -= damage;
             float percentage = 1f * health / maxHealth;
-            hud.AddPlayerHealthBar(percentage);
             if (health <= 0)
             {
                 dyingSound.Play();

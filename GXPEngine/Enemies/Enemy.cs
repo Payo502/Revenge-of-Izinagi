@@ -79,10 +79,36 @@ public class Enemy : AnimationSprite
         GameObject[] collisions = GetCollisions();
         foreach (GameObject col in collisions)
         {
-            if (col is Bullet)
+            switch (Player.katanaLevel)
             {
-                TakeDamage(1);
-                col.Destroy();
+                case 0:
+                    if (col is Bullet)
+                    {
+                        TakeDamage(1);
+                        col.Destroy();
+                    }
+                    break;
+                case 1 :
+                    if (col is Bullet)
+                    {
+                        TakeDamage(1);
+                        col.Destroy();
+                    }
+                    break;
+                case 2:
+                    if (col is Bullet)
+                    {
+                        TakeDamage(2);
+                        col.Destroy();
+                    }
+                    break;
+                case 3:
+                    if (col is Bullet)
+                    {
+                        TakeDamage(3);
+                        col.Destroy();
+                    }
+                    break;
             }
         }
     }
@@ -124,7 +150,8 @@ public class Enemy : AnimationSprite
     {
         HealthPotion healthPotion;
         DoubleXP doubleXP;
-        int randPotion = Utils.Random(0, 2);
+        KatanaLevel katanaLevel;
+        int randPotion = Utils.Random(0, 4);
         switch (randPotion)
         {
             case 0:
@@ -136,6 +163,11 @@ public class Enemy : AnimationSprite
                 doubleXP = new DoubleXP(player);
                 parent.AddChild(doubleXP);
                 doubleXP.SetXY(x, y);
+                break;
+            case 2:
+                katanaLevel = new KatanaLevel();
+                parent.AddChild(katanaLevel);
+                katanaLevel.SetXY(x, y);
                 break;
 
         }
@@ -153,11 +185,11 @@ public class Enemy : AnimationSprite
     protected float HorizonotalMovement(Player pPlayer)
     {
         player = pPlayer;
-        float dx=0;
+        float dx = 0;
         if (player != null)
         {
             dx = player.x - x;
-        }  
+        }
         return dx;
     }
 

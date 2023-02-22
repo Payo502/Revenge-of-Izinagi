@@ -10,28 +10,41 @@ using System.Drawing;
 
 public class HUD : GameObject
 {
-    EasyDraw healthBar;
+    //EasyDraw healthBar;
+    Sprite healthBarFull;
     EasyDraw scoreBoard;
     float initialHealthBarWidth;
 
     GameData gameData;
 
+
     public HUD()
     {
-        healthBar = new EasyDraw(2000, 100, false);
-        AddChild(healthBar);
+        //healthBar = new EasyDraw(2000, 100, false);
+        //AddChild(healthBar);
 
         scoreBoard = new EasyDraw(150, 20, false);
         scoreBoard.SetXY(game.width - scoreBoard.width, 0);
         AddChild(scoreBoard);
-        Sprite UIHealthBar = new Sprite("healthBarEmpty.png"); //the empty healthBar
-        Sprite healthBarFull = new Sprite("health_bar.png"); //the full healthBar
+
+        Sprite UIHealthBar = new Sprite("healthBarEmpty.png", false, false); //the empty healthBar
+        //UIHealthBar.SetXY(0, 0);
+        healthBarFull = new Sprite("health_bar.png", false, false); //the full healthBar
+        //healthBarFull.SetXY(0, 0);
+
+
+        AddChild(healthBarFull);
+        AddChild(UIHealthBar);
+
+
+
+        initialHealthBarWidth = healthBarFull.width;
 
     }
 
     public void AddPlayerHealthBar(float healthPercentage) /*, int playerHealth)*/
     {
-        healthBar.width = initialHealthBarWidth * healthPercentage;
+        healthBarFull.width = initialHealthBarWidth * healthPercentage;
         /*healthBar.graphics.Clear(Color.Empty);
         healthBar.ShapeAlign(CenterMode.Min, CenterMode.Min);
         healthBar.NoStroke();

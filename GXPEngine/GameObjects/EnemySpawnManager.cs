@@ -27,7 +27,7 @@ public class EnemySpawnManager : GameObject
 
 
     int[] enemyProbabilities = new int[] { 70,20, 5, 5 };
-    int[] enemyProbabilityChange = new int[] { -2, 1, 2, 2 };
+    int[] enemyProbabilityChange = new int[] { -2, -1, 2, 2 };
 
 
     List<Enemy> activeEnemies = new List<Enemy>();

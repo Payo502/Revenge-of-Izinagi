@@ -11,12 +11,12 @@ public class Zombie : Enemy
 {
 
 
-    public Zombie() : base("zombie.png", 8, 1, 1, 100, 1)
+    public Zombie() : base("zombie.png", 7, 1, 3, 30,1)
     {
         scale = 0.75f;
     }
 
-    void Animate()
+    void Animate()  
     {
         float dx = HorizonotalMovement(player);
         if (dx < 0)

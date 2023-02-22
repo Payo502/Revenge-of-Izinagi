@@ -10,12 +10,13 @@ using TiledMapParser;
 public class DoubleXP : Pickup
 {
     Player player;
-    public DoubleXP(Player pPlayer) : base("circle.png", 1, 1)
+    public DoubleXP(Player pPlayer) : base("2X.png", 6, 1)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
         player = pPlayer;
-        player.ActivateDoubleXP(10f);
+        scale = 0.75f;
+        player.ActivateDoubleXP(10000f);
     }
 
     protected override void Grab()
