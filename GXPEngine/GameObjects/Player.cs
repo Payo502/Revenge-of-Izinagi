@@ -19,9 +19,9 @@ public class Player : AnimationSprite
     const int maxHealth = 100;
     public int health;
 
-    float speedX = 7f;
+    float speedX = 10f;
 
-    int bulletSpeed = 9;
+    int bulletSpeed = 15;
 
     int jumpStrength = 11;
     float gravity = 0.3f;
@@ -41,7 +41,7 @@ public class Player : AnimationSprite
     int dashDelay = 500;
     int lastDash = 0;
 
-    int shootDelay = 500;
+    int shootDelay = 150;
     int lastShoot = 0;
 
     bool isBlocking = false;

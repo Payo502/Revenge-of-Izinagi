@@ -9,8 +9,8 @@ using TiledMapParser;
 
 public class EnemySpawnManager : GameObject
 {
-    Vector2 spawnPoint1 = new Vector2(216, 352);
-    Vector2 spawnPoint2 = new Vector2(1889, 300);
+    Vector2 spawnPoint1 = new Vector2(256, 416);
+    Vector2 spawnPoint2 = new Vector2(2752, 416);
 
     float spawnDelay = 4000;
     float spawnDelayDecrement = 50;
@@ -26,8 +26,8 @@ public class EnemySpawnManager : GameObject
     };
 
 
-    int[] enemyProbabilities = new int[] { 70,20, 5, 5 };
-    int[] enemyProbabilityChange = new int[] { -2, -1, 2, 2 };
+    int[] enemyProbabilities = new int[] { 60, 15, 5, 20 };
+    int[] enemyProbabilityChange = new int[] { -2, 1, 2, 0 };
 
 
     List<Enemy> activeEnemies = new List<Enemy>();

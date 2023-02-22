@@ -14,7 +14,7 @@ public class Oni : Enemy
     int lastHitTime = 0;
     bool isAttacking = false;
 
-    public Oni() : base("Oni-Sheet.png", 13, 1, 10, 1, 1)
+    public Oni() : base("Oni-Sheet.png", 13, 1, 10, 25, 1)
     {
         scale = 0.75f;
     }

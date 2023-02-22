@@ -23,7 +23,7 @@ public class Lava : AnimationSprite
         {
             if (cols is Player)
             {
-                player.TakeDamage(1);
+                player.TakeDamage(100);
                 Console.WriteLine("Touching Lava");
             }
         }

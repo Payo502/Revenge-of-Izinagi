@@ -32,7 +32,8 @@ public class HUD : GameObject
         healthBarFull = new Sprite("health_bar.png", false, false); //the full healthBar
         //healthBarFull.SetXY(0, 0);
 
-
+        healthBarFull.height = healthBarFull.height * 2;
+        UIHealthBar.height = UIHealthBar.height * 2 ;
         AddChild(healthBarFull);
         AddChild(UIHealthBar);
 
@@ -45,6 +46,7 @@ public class HUD : GameObject
     public void AddPlayerHealthBar(float healthPercentage) /*, int playerHealth)*/
     {
         healthBarFull.width = initialHealthBarWidth * healthPercentage;
+        
         /*healthBar.graphics.Clear(Color.Empty);
         healthBar.ShapeAlign(CenterMode.Min, CenterMode.Min);
         healthBar.NoStroke();

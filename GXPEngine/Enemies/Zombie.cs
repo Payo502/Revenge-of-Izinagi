@@ -11,7 +11,7 @@ public class Zombie : Enemy
 {
 
 
-    public Zombie() : base("zombie.png", 7, 1, 3, 30,1)
+    public Zombie() : base("zombie.png", 7, 1, 3, 10,3)
     {
         scale = 0.75f;
     }

@@ -9,7 +9,7 @@ using TiledMapParser;
 public class Shinigami : Enemy
 {
     int shinigamiScore = 200;
-    public Shinigami() : base("shinigami.png", 8, 1, 5, 5,2)
+    public Shinigami() : base("shinigami.png", 8, 1, 6, 20, 6)
     {
         scale = 0.75f;
     }

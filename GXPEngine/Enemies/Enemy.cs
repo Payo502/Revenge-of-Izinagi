@@ -151,13 +151,13 @@ public class Enemy : AnimationSprite
         HealthPotion healthPotion;
         DoubleXP doubleXP;
         KatanaLevel katanaLevel;
-        int randPotion = Utils.Random(0, 4);
+        int randPotion = Utils.Random(0, 6);
         switch (randPotion)
         {
             case 0:
-                healthPotion = new HealthPotion(player);
-                parent.AddChild(healthPotion);
-                healthPotion.SetXY(x, y);
+                katanaLevel = new KatanaLevel();
+                parent.AddChild(katanaLevel);
+                katanaLevel.SetXY(x, y);
                 break;
             case 1:
                 doubleXP = new DoubleXP(player);
@@ -165,10 +165,12 @@ public class Enemy : AnimationSprite
                 doubleXP.SetXY(x, y);
                 break;
             case 2:
-                katanaLevel = new KatanaLevel();
-                parent.AddChild(katanaLevel);
-                katanaLevel.SetXY(x, y);
+                healthPotion = new HealthPotion(player);
+                parent.AddChild(healthPotion);
+                healthPotion.SetXY(x, y);
                 break;
+
+
 
         }
         AddScore();

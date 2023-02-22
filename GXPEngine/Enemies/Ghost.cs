@@ -12,7 +12,7 @@ public class Ghost : Enemy
 
     int ghostScore = 300;
 
-    public Ghost() : base("ghost.png", 3, 1, 5, 2,1)
+    public Ghost() : base("ghost.png", 3, 1, 6, 20,5)
     {
         scale= 0.75f;
     }
