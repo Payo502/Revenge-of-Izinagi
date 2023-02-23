@@ -16,7 +16,7 @@ public class Bullet : Sprite
 
 
 
-    public Bullet(float pVx, float pVy, GameObject pOwner) : base("bullet.png")
+    public Bullet(string filename,float pVx, float pVy, GameObject pOwner) : base(filename)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);

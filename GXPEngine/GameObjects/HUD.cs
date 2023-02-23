@@ -13,7 +13,10 @@ public class HUD : GameObject
     //EasyDraw healthBar;
     Sprite healthBarFull;
     EasyDraw scoreBoard;
+    EasyDraw lastScore;
     float initialHealthBarWidth;
+
+    EasyDraw levelKatana;
 
     GameData gameData;
 
@@ -24,8 +27,17 @@ public class HUD : GameObject
         //AddChild(healthBar);
 
         scoreBoard = new EasyDraw(150, 20, false);
-        scoreBoard.SetXY(game.width - scoreBoard.width, 0);
+        scoreBoard.SetXY(game.width - scoreBoard.width/2, 0);
         AddChild(scoreBoard);
+
+        levelKatana = new EasyDraw(150,20,false);
+        levelKatana.SetXY(game.width - levelKatana.width/2, 20);
+        AddChild(levelKatana);
+
+        lastScore = new EasyDraw(200, 200, false);
+        lastScore.SetXY(game.width/2,game.height/2);
+        AddChild(lastScore);
+
 
         Sprite UIHealthBar = new Sprite("healthBarEmpty.png", false, false); //the empty healthBar
         //UIHealthBar.SetXY(0, 0);
@@ -72,6 +84,18 @@ public class HUD : GameObject
     {
         playerScore = Player.score;
         scoreBoard.Text(String.Format("Score: {0}", playerScore), true);
+    }
+
+    public void SetKatanaLevel(int katanaLevel)
+    {
+        katanaLevel = Player.katanaLevel;
+        levelKatana.Text(String.Format("Katana Level: {0}", katanaLevel), true);
+    }
+    public void FinalScore(float finalScore)
+    {
+        finalScore = Player.score;
+        lastScore.Text(String.Format("Highscore: {0}", finalScore), true);
+
     }
 
     public void SetGameData(GameData pGameData)

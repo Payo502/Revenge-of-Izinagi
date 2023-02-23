@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buttons\MenuButton.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="Buttons\Button.cs" />
     <Compile Include="Enemies\Enemy.cs" />
     <Compile Include="Enemies\Ghost.cs" />
     <Compile Include="GameObjects\EnemySpawnManager.cs" />
@@ -50,7 +51,7 @@
     <Compile Include="GameObjects\Lava.cs" />
     <Compile Include="GameObjects\Level.cs" />
     <Compile Include="Enemies\Oni.cs" />
-    <Compile Include="GameObjects\StartButton.cs" />
+    <Compile Include="Buttons\StartButton.cs" />
     <Compile Include="GameObjects\SummoningPool.cs" />
     <Compile Include="GameObjects\Water.cs" />
     <Compile Include="GameOverbutton.cs" />

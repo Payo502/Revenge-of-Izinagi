@@ -181,7 +181,7 @@ public class Enemy : AnimationSprite
     protected virtual void AddScore()
     {
         Player.score += 100;
-        Console.WriteLine(Player.score);
+        Console.WriteLine("Highscore: {0}", Player.score);
     }
 
     protected float HorizonotalMovement(Player pPlayer)

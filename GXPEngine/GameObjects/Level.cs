@@ -77,6 +77,10 @@ public class Level : GameObject
         {
             Console.WriteLine("Player is not found!");
             Camera cam2 = new Camera(0, 0, 683, 384);
+            if(currentLevelName == "gameOver.tmx")
+            {
+                hud.FinalScore(Player.score);
+            }
             cam2.SetXY(350, 192);
             AddChild(cam2);
         }

@@ -54,7 +54,7 @@ public class Player : AnimationSprite
     Sound katanaSound = new Sound("katana_woosh.mp3", false, false);
     Sound dyingSound = new Sound("player_dying.mp3", false, false);
 
-    public Player(String filename, int cols, int rows, TiledObject obj = null) : base("Ninja.png", 14, 1)
+    public Player(String filename, int cols, int rows, TiledObject obj = null) : base("Ninja.png", 17, 1)
     {
         collider.isTrigger = true;
         SetOrigin(width / 2, height / 2);
@@ -158,6 +158,8 @@ public class Player : AnimationSprite
         float percentage = 1f * health / maxHealth;
         hud.AddPlayerHealthBar(percentage);
         hud.SetScore(score);
+        hud.SetKatanaLevel(katanaLevel);
+        
     }
 
     void Animate()
@@ -200,6 +202,11 @@ public class Player : AnimationSprite
     {
         SetCycle(8, 1); // Blocking Animation
         Animate(0.3f);
+    }
+    void AnimateAttacking()
+    {
+        SetCycle(14, 3);
+        Animate(0.01f);
     }
 
     void AnimateJumping()
@@ -265,14 +272,57 @@ public class Player : AnimationSprite
                 if (Time.time > lastShoot + shootDelay)
                 {
                     katanaSound.Play();
-                    Bullet bullet = new Bullet(_mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
-                    bullet.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y - height/5);
-                    if (_mirrorX)
+                    AnimateAttacking();
+                    //Bullet bullet = new Bullet(_mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
+                    switch (Player.katanaLevel)
                     {
-                        bullet.scaleX = -1;
+                        case 0:
+                            Bullet bulletlvl0 = new Bullet("Bullet.png",_mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
+                            bulletlvl0.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y - height / 5);
+                            if (_mirrorX)
+                            {
+                                bulletlvl0.scaleX = -1;
+                            }
+                            parent.LateAddChild(bulletlvl0);
+                            lastShoot = Time.time;
+
+                            break;
+                        case 1:
+                            Bullet bulletlvl1 = new Bullet("Bullet.png", _mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
+                            bulletlvl1.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y - height / 5);
+                            if (_mirrorX)
+                            {
+                                bulletlvl1.scaleX = -1;
+                            }
+                            parent.LateAddChild(bulletlvl1);
+                            lastShoot = Time.time;
+
+
+                            break;
+                        case 2:
+                            Bullet bulletlvl2 = new Bullet("Bullet2.png", _mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
+                            bulletlvl2.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y - height / 5);
+                            if (_mirrorX)
+                            {
+                                bulletlvl2.scaleX = -1;
+                            }
+                            parent.LateAddChild(bulletlvl2);
+                            lastShoot = Time.time;
+
+
+                            break;
+                        case 3:
+                            Bullet bulletlvl3 = new Bullet("Bullet3.png", _mirrorX ? -bulletSpeed : bulletSpeed, 0, this);
+                            bulletlvl3.SetXY(x + (_mirrorX ? -1 : 1) * width / 2, y - height / 5);
+                            if (_mirrorX)
+                            {
+                                bulletlvl3.scaleX = -1;
+                            }
+                            parent.LateAddChild(bulletlvl3);
+                            lastShoot = Time.time;
+                            break;
                     }
-                    parent.LateAddChild(bullet);
-                    lastShoot = Time.time;
+                    
                 }
 
             }

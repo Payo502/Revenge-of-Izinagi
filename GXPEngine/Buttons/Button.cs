@@ -15,17 +15,25 @@ internal class Button : AnimationSprite
         //levelName = obj.GetStringProperty("Name");
     }
 
-    protected void CheckIfClicked()
+    protected virtual void CheckIfClicked()
     {
 
         if (Input.GetKeyDown(Key.M))
         {
             DoStuff();
         }
-
+        else if(Input.GetKeyDown(Key.W))
+        {
+            DoMenuStuff();
+        }
     }
 
     protected virtual void DoStuff()
     {
+    }
+
+    protected virtual void DoMenuStuff()
+    {
+
     }
 }
