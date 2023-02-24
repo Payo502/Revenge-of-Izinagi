@@ -146,7 +146,6 @@ public class Player : AnimationSprite
             }
         }
 
-       
         Animate();
     }
 
@@ -356,7 +355,7 @@ public class Player : AnimationSprite
     {
         Move();
         Shoot();
-        hud.SetXY(x-game.width/2 - width/2,y - game.height/2 - 20);
+        hud.SetXY(x-game.width/2 - width/2,y - game.height/2 - 80);
         Block();
         DoubleXP();
         //SetupHUD();

@@ -66,7 +66,7 @@ public class Level : GameObject
             enemySpawn = new EnemySpawnManager();
             AddChild(enemySpawn);
 
-            Camera cam1 = new Camera(0, 0, 683, 384);
+            Camera cam1 = new Camera(0, 0, 683, 500);
             cam1.scale = 1.5f;
             player.AddChild(cam1);
             player.PlayerDead += PlayerDeath;

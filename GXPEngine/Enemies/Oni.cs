@@ -10,9 +10,15 @@ using TiledMapParser;
 
 public class Oni : Enemy
 {
+    Sound oniSound = new Sound("Oni.mp3",false,false);
+
     int oniScore = 500;
     int lastHitTime = 0;
     bool isAttacking = false;
+
+    int oniSoundDelay = 0;
+    int lastOniSOund = 0;
+
 
     public Oni() : base("Oni-Sheet.png", 13, 1, 10, 25, 1)
     {
@@ -31,6 +37,11 @@ public class Oni : Enemy
             else
             {
                 Mirror(true, false);
+            }
+            if(Time.time > lastOniSOund + oniSoundDelay)
+            {
+                lastOniSOund = Time.time;
+                //oniSound.Play();
             }
             AnimateAttack();
             isAttacking= true;
